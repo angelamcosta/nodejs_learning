@@ -1,0 +1,25 @@
+const http = require('http');
+
+const hostname = '127.0.0.1';
+const port = 3000;
+
+const server = http.createServer((req, res) => {
+	try {
+		if (req.method === 'GET' && req.url == '/') {
+			res.statusCode = 200;
+			res.setHeader('Content-Type', 'text/plain');
+			res.end('Hello World!');
+		} else {
+			throw new Error(`Invalid request!`);
+		}
+	} catch (error) {
+		res.statusCode = 500;
+		res.setHeader('Content-Type', 'text/plain');
+		res.end(`Error! ${error.message}`);
+		console.log(`Error! ${error.message}`);
+	}
+});
+
+server.listen(port, hostname, () => {
+	console.log(`Server is up and running on port ${port}`);
+});
